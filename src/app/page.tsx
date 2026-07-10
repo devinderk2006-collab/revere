@@ -7,6 +7,7 @@ import SmoothScroll from '@/components/SmoothScroll'
 import Navigation from '@/components/Navigation'
 import Hero from '@/components/Hero'
 import Gallery from '@/components/Gallery'
+import Footer from '@/components/Footer'
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false)
@@ -27,6 +28,7 @@ export default function Home() {
         <Navigation />
         <Hero />
         <Gallery />
+        <Footer />
       </div>
     </>
   )

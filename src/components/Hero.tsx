@@ -20,27 +20,37 @@ export default function Hero() {
   const svgRef = useRef<SVGSVGElement>(null)
 
   useEffect(() => {
-    const tl = gsap.timeline({ delay: 0.3 })
+    // Wait for fonts before animating
+    document.fonts.ready.then(() => {
+      // Force SVG to re-render after fonts load
+      if (svgRef.current) {
+        svgRef.current.style.display = 'none'
+        void svgRef.current.offsetHeight
+        svgRef.current.style.display = ''
+      }
 
-    tl.fromTo(bgRef.current,
-      { opacity: 0, scale: 1.1 },
-      { opacity: 1, scale: 1, duration: 2.5, ease: 'power2.out' }
-    )
-    .fromTo(svgRef.current,
-      { opacity: 0, y: 80 },
-      { opacity: 1, y: 0, duration: 1.6, ease: 'power3.out' },
-      '-=1.5'
-    )
-    .fromTo(metaRef.current,
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
-      '-=0.6'
-    )
-    .fromTo(scrollHintRef.current,
-      { opacity: 0 },
-      { opacity: 1, duration: 0.6 },
-      '-=0.3'
-    )
+      const tl = gsap.timeline({ delay: 0.3 })
+
+      tl.fromTo(bgRef.current,
+        { opacity: 0, scale: 1.1 },
+        { opacity: 1, scale: 1, duration: 2.5, ease: 'power2.out' }
+      )
+      .fromTo(svgRef.current,
+        { opacity: 0, y: 80 },
+        { opacity: 1, y: 0, duration: 1.6, ease: 'power3.out' },
+        '-=1.5'
+      )
+      .fromTo(metaRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+        '-=0.6'
+      )
+      .fromTo(scrollHintRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.6 },
+        '-=0.3'
+      )
+    })
 
     const onMouseMove = (e: MouseEvent) => {
       const x = (e.clientX / window.innerWidth - 0.5) * 25
@@ -218,7 +228,7 @@ export default function Hero() {
             fontWeight="300"
             letterSpacing="-4"
             fill="none"
-            stroke="rgba(192,149,123,0.12)"
+            stroke="rgba(192,149,123,0.15)"
             strokeWidth="0.8"
           >
             reveरे
@@ -277,7 +287,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll hint — BRIGHTER NOW */}
+      {/* Scroll hint */}
       <div
         ref={scrollHintRef}
         style={{
