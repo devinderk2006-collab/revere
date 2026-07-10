@@ -20,13 +20,12 @@ export default function Hero() {
   const svgRef = useRef<SVGSVGElement>(null)
 
   useEffect(() => {
-    // Wait for fonts before animating
     document.fonts.ready.then(() => {
-      // Force SVG to re-render after fonts load
       if (svgRef.current) {
-        svgRef.current.style.display = 'none'
-        void svgRef.current.offsetHeight
-        svgRef.current.style.display = ''
+        const el = svgRef.current as unknown as HTMLElement
+        el.style.display = 'none'
+        void el.offsetHeight
+        el.style.display = ''
       }
 
       const tl = gsap.timeline({ delay: 0.3 })
